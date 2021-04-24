@@ -7,6 +7,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
+/**
+ * Класс Server реализует серверную часть сетевого чата.
+ * Класс реализует интерфейс TCPConnectionListener
+ * @see TCPConnectionListener
+ *
+ * </body>
+ */
 public class Server implements TCPConnectionListener {
     public static void main(String[] args) {
         new Server();
@@ -14,6 +21,12 @@ public class Server implements TCPConnectionListener {
 
     private final ArrayList<TCPConnection> listConnection = new ArrayList<>();
 
+    /**
+     * В конструкторе создается объект ServerSocket и ожидает подключения нового клиента.
+     * При подключении клиента к сокету создается новое соединение TCPConnection, которому в параметрах передается объект Socket
+     * и сам объект класса Server
+     * @throws
+     */
     private Server() {
         System.out.println("Server is runing...");
         try (ServerSocket serverSocket = new ServerSocket(8189)){
@@ -29,6 +42,14 @@ public class Server implements TCPConnectionListener {
         }
     }
 
+    /**
+     * <body>
+     *     Метод получает установленное соединение TCPConnection и добавляет его в список.
+     *     Далее отправляется сообщение всем пользователям, что подключен новый клиент
+     *
+     * @param connection содержит новое установленное подключение
+     * </body>
+     */
     @Override
     public synchronized void onConnectionReady(TCPConnection connection) {
         listConnection.add(connection);
